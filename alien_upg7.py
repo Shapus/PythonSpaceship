@@ -163,9 +163,10 @@ class MoveController(MoveKeys):
 #=================================================================================================================================================================================================#
 class ShootController(ShootKey):
     shoot_sound = pygame.mixer.Sound('sounds/player_shoot.ogg')
+    shoot_sound.set_volume(0.05)
     def __init__(self, shootKey):
         ShootKey.__init__(self,shootKey.shoot_key)
-        self.shoot_timer = 0 
+        self.shoot_timer = 0
     def shoot_control(self):
         keys = pygame.key.get_pressed()
         if keys[self.shoot_key]:
@@ -173,6 +174,7 @@ class ShootController(ShootKey):
                 self.shoot_timer = (self.shoot_timer+1)%5
                 if self.shoot_timer == 0:
                     self.shoot()
+                    self.shoot_sound.stop()
                     self.shoot_sound.play()
             except Exception:
                 pass
